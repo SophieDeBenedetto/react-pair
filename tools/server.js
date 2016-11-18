@@ -5,6 +5,7 @@ import config from '../webpack.config.dev';
 import open from 'open';  
 import favicon from 'serve-favicon';
 
+
 /* eslint-disable no-console */
 
 const port = 3000;  
@@ -22,10 +23,25 @@ app.get('*', function(req, res) {
   res.sendFile(path.join( __dirname, '../src/index.html'));
 });
 
-app.listen(port, function(err) {  
+const server = app.listen(port, function(err) {  
   if (err) {
     console.log(err);
   } else {
     open(`http://localhost:${port}`);
   }
+});
+
+const io = require('socket.io')(server);
+
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+ 
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+  socket.on('coding event', function(coords) {
+    console.log('in EXPRESS coding event')
+    socket.broadcast.emit('receive code', coords)
+  })
 });
