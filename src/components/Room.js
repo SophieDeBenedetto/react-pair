@@ -36,23 +36,56 @@ import 'codemirror/mode/crystal/crystal.js'
 class Room extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {code: '', mode: 'javascript', theme: 'eclipse'}
+    this.state = {code: '', mode: 'javascript', theme: 'eclipse', users: []}
     socket.on('receive code', (newCode) => this.updateCodeInState(newCode));
     socket.on('receive change mode', (newMode) => this.updateModeInState(newMode))
+    socket.on('new user join', (users) => this.joinUser(users))
+    socket.on('load present users', () => this.sendUsers())
+    socket.on('load users', (users) => this.updateUsersInState(users))
+    socket.on('user left room', (user) => this.removeUser(user))
   }
 
   componentDidMount() {
     if (this.props.challenge.id == undefined) {
       this.props.actions.getChallenges();
-    } else {     
-      socket.emit('room', {room: this.props.challenge.id});
+    } else {
+      const user = this.props.currentUser
+      const users = [...this.state.users, this.props.currentUser]
+      socket.emit('room', {room: this.props.challenge.id, user: user});
+      this.setState({users: users})
     }
   }
 
+  componentWillUnmount() {
+    socket.emit('leave room', {room: this.props.challenge.id, user: this.props.currentUser})
+  }
+
+  componentWillReceiveProps() {
+    const user = this.props.currentUser
+    const users = [...this.state.users, this.props.currentUser]
+    socket.emit('room', {room: this.props.challenge.id, user: user});
+    this.setState({users: users})
+  }
+
+  sendUsers() {
+    socket.emit('send users', {room: this.props.challenge.id, users: this.state.users})
+  }
+
+  removeUser(user) {
+    const newUsers = Object.assign([], this.state.users);
+    const indexOfUserToDelete = this.state.users.findIndex(Olduser => {return Olduser == user.user})
+    newUsers.splice(indexOfUserToDelete, 1);
+    this.setState({users: newUsers})
+  }
+
+  joinUser(user) {
+    this.setState({users: [...this.state.users, user]})
+  }
+
+
   updateCodeInState(newCode) {
-    debugger;
     this.setState({
-        code: newCode
+      code: newCode
     });
   }
 
@@ -60,6 +93,13 @@ class Room extends React.Component {
     this.setState({
       mode: newMode
     })
+  }
+
+  updateUsersInState(users) {
+    const combinedUsers = this.state.users.concat(users)
+    const newUsers = Array.from(new Set(combinedUsers));
+    const cleanUsers = newUsers.filter(user => {return user.length > 1})
+    this.setState({users: cleanUsers})
   }
 
   codeIsHappening(newCode) {
@@ -85,7 +125,11 @@ class Room extends React.Component {
     return (
       <div>
         <h1>{this.props.challenge.title}</h1>
-        <p>{this.props.challenge.description  }</p>
+        <p>{this.props.challenge.description}</p>
+        <ul>
+          <li>yo</li>
+          {this.state.users.map(u => {return <li>{u}</li>})}
+        </ul>
         <ModeSelect mode={this.state.mode} changeMode={this.changeMode.bind(this)}/>
         <ThemeSelect theme={this.state.theme} changeTheme={this.changeTheme.bind(this)} />
         <Codemirror value={this.state.code} onChange={this.codeIsHappening.bind(this)} options={options} />
@@ -98,9 +142,9 @@ class Room extends React.Component {
 function mapStateToProps(state, ownProps) {
   if (state.challenges.length > 0) {
     const challenge = state.challenges.filter(challenge => {return challenge.id == ownProps.params.id})[0]
-    return {challenge: challenge}
+    return {challenge: challenge, currentUser: state.currentUser}
   } else {
-    return {challenge: {title: '', description: '', source: ''}}
+    return {challenge: {title: '', description: '', source: ''}, currentUser: ''}
   }
 }
 

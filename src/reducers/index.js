@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
 import challenges from './challengesReducer';
-// import session from './sessionReducer';
+import currentUser from './currentUserReducer';
 
 const rootReducer = combineReducers({
-  // short hand property names
+  currentUser,
   challenges
 })
 
