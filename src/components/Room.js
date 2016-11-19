@@ -1,9 +1,10 @@
 import React from 'react'
 const socket = io()
-import Codemirror from 'react-codemirror'
-import ModeSelect from './ModeSelect'
-import ThemeSelect from './ThemeSelect'
-import UserList from './UserList'
+import Codemirror from 'react-codemirror';
+import ModeSelect from './ModeSelect';
+import ThemeSelect from './ThemeSelect';
+import UserList from './UserList';
+import SaveButton from './SaveButton'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/challengesActions';
@@ -92,6 +93,12 @@ class Room extends React.Component {
     });
   }
 
+  updateCodeForCurrentUser(newCode) {
+    this.setState({
+      code: newCode
+    })
+  }
+
   updateModeInState(newMode) {
     this.setState({
       mode: newMode
@@ -99,7 +106,6 @@ class Room extends React.Component {
   }
 
   updateUsersAndCodeInState(payload) {
-    debugger;
     const combinedUsers = this.state.users.concat(payload.users)
     const newUsers = Array.from(new Set(combinedUsers));
     const cleanUsers = newUsers.filter(user => {return user.length > 1})
@@ -107,7 +113,7 @@ class Room extends React.Component {
   }
 
   codeIsHappening(newCode) {
-    this.updateCodeInState(newCode)
+    this.updateCodeForCurrentUser(newCode)
     this.updateCurrentlyTyping()
     socket.emit('coding event', {code: newCode, room: this.props.challenge.id, currentlyTyping: this.props.currentUser})
   }
@@ -145,6 +151,8 @@ class Room extends React.Component {
         <ModeSelect mode={this.state.mode} changeMode={this.changeMode.bind(this)}/>
         <ThemeSelect theme={this.state.theme} changeTheme={this.changeTheme.bind(this)} />
         <Codemirror value={this.state.code} onChange={this.codeIsHappening.bind(this)} options={options} />
+        <br/>
+        <SaveButton text={this.state.code} />
         <br/>
         <Button onClick={this.clearCode.bind(this)} className="col-lg-12">clear code</Button>
       </div>
