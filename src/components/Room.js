@@ -3,6 +3,7 @@ const socket = io()
 import Codemirror from 'react-codemirror'
 import ModeSelect from './ModeSelect'
 import ThemeSelect from './ThemeSelect'
+import UserList from './UserList'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/challengesActions';
@@ -112,7 +113,6 @@ class Room extends React.Component {
 
   updateCurrentlyTyping() {
     this.setState({currentlyTyping: this.props.currentUser})
-    debugger;
   }
 
   changeMode(newMode) {
@@ -130,16 +130,6 @@ class Room extends React.Component {
     socket.emit('coding event', {code: '', room: this.props.challenge.id})
   }
 
-  userList() {
-    return this.state.users.map(user => {
-      if (user == this.state.currentlyTyping) {
-        return <li style={{color: 'blue'}}>{user}</li>
-      } else {
-        return <li style={{color: 'red'}}>{user}</li>
-      }
-    })
-  }
-
   render() {
     var options = {
         lineNumbers: true,
@@ -150,10 +140,7 @@ class Room extends React.Component {
       <div>
         <h1>{this.props.challenge.title}</h1>
         <p>{this.props.challenge.description}</p>
-        <ul>
-          <li>yo</li>
-          {this.userList()}
-        </ul>
+        <UserList users={this.state.users} currentlyTyping={this.state.currentlyTyping}/>
         <ModeSelect mode={this.state.mode} changeMode={this.changeMode.bind(this)}/>
         <ThemeSelect theme={this.state.theme} changeTheme={this.changeTheme.bind(this)} />
         <Codemirror value={this.state.code} onChange={this.codeIsHappening.bind(this)} options={options} />
