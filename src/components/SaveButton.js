@@ -2,18 +2,6 @@ import React from "react";
 import {Button} from 'react-bootstrap'
 import FileSaver from 'file-saver'
 
-
-
-import 'codemirror/mode/javascript/javascript.js'
-import 'codemirror/mode/ruby/ruby.js'
-import 'codemirror/mode/swift/swift.js'
-import 'codemirror/mode/clojure/clojure.js'
-import 'codemirror/mode/python/python.js'
-import 'codemirror/mode/php/php.js'
-import 'codemirror/mode/erlang/erlang.js'
-import 'codemirror/mode/coffeescript/coffeescript.js'
-import 'codemirror/mode/crystal/crystal.js'
-
 class SaveButton extends React.Component {
 
   constructor(props) {
