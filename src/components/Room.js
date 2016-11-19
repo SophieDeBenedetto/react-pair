@@ -16,13 +16,15 @@ class Room extends React.Component {
   constructor(props) {
     super(props)
     this.state = {code: '', mode: 'javascript'}
-    socket.on('receive code', (newCode) => this.updateCodeInState(newCode.code));
-    socket.on('receive change mode', (newMode) => this.updateModeInState(newMode.mode))
+    socket.on('receive code', (newCode) => this.updateCodeInState(newCode));
+    socket.on('receive change mode', (newMode) => this.updateModeInState(newMode))
   }
 
   componentDidMount() {
     if (this.props.challenge.id == undefined) {
       this.props.actions.getChallenges();
+    } else {     
+      socket.emit('room', {room: this.props.challenge.id});
     }
   }
 
@@ -40,12 +42,12 @@ class Room extends React.Component {
 
   codeIsHappening(newCode) {
     this.updateCodeInState(newCode)
-    socket.emit('coding event', {code: newCode})
+    socket.emit('coding event', {code: newCode, room: this.props.challenge.id})
   }
 
   changeMode(newMode) {
     this.updateModeInState
-    socket.emit('change mode', {mode: newMode})
+    socket.emit('change mode', {mode: newMode, room: this.props.challenge.id})
   }
 
   render() {
@@ -56,7 +58,7 @@ class Room extends React.Component {
     return (
       <div>
         <h1>{this.props.challenge.title}</h1>
-        <p>{this.props.challenge.description}</p>
+        <p>{this.props.challenge.description  }</p>
         <ModeSelect mode={this.state.mode} changeMode={this.changeMode.bind(this)}/>
         <Codemirror value={this.state.code} onChange={this.codeIsHappening.bind(this)} options={options} />
       </div>

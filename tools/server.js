@@ -40,12 +40,17 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
+
+  socket.on('room', function(data) {
+    socket.join(data.room);
+  });
+
   socket.on('coding event', function(data) {
     console.log('in EXPRESS coding event')
-    socket.broadcast.emit('receive code', data)
+    socket.broadcast.to(data.room).emit('receive code', data.code);
   })
   socket.on('change mode', function(data) {
-    socket.broadcast.emit('receive change mode', data)
+    socket.broadcast.to(data.room).emit('receive change mode', data.mode)
   })
 });
 
