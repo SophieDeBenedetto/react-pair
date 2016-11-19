@@ -42,8 +42,8 @@ class Room extends React.Component {
     socket.on('receive code', (payload) => this.updateCodeInState(payload));
     socket.on('receive change mode', (newMode) => this.updateModeInState(newMode))
     socket.on('new user join', (users) => this.joinUser(users))
-    socket.on('load present users', () => this.sendUsers())
-    socket.on('load users', (users) => this.updateUsersInState(users))
+    socket.on('load users and code', () => this.sendUsersAndCode())
+    socket.on('receive users and code', (payload) => this.updateUsersAndCodeInState(payload))
     socket.on('user left room', (user) => this.removeUser(user))
   }
 
@@ -69,8 +69,8 @@ class Room extends React.Component {
     this.setState({users: users})
   }
 
-  sendUsers() {
-    socket.emit('send users', {room: this.props.challenge.id, users: this.state.users})
+  sendUsersAndCode() {
+    socket.emit('send users and code', {room: this.props.challenge.id, users: this.state.users, code: this.state.code})
   }
 
   removeUser(user) {
@@ -98,11 +98,12 @@ class Room extends React.Component {
     })
   }
 
-  updateUsersInState(users) {
-    const combinedUsers = this.state.users.concat(users)
+  updateUsersAndCodeInState(payload) {
+    debugger;
+    const combinedUsers = this.state.users.concat(payload.users)
     const newUsers = Array.from(new Set(combinedUsers));
     const cleanUsers = newUsers.filter(user => {return user.length > 1})
-    this.setState({users: cleanUsers})
+    this.setState({users: cleanUsers, code: payload.code})
   }
 
   codeIsHappening(newCode) {
