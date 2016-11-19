@@ -56,8 +56,8 @@ io.on('connection', (socket) => {
 
   socket.on('coding event', function(data) {
     console.log('in EXPRESS coding event')
-    console.log(data.room)
-    socket.broadcast.to(data.room).emit('receive code', data.code);
+    console.log(data)
+    socket.broadcast.to(data.room).emit('receive code', {code: data.code, currentlyTyping: data.currentlyTyping});
   })
   socket.on('change mode', function(data) {
     socket.broadcast.to(data.room).emit('receive change mode', data.mode)

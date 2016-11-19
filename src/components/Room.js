@@ -37,8 +37,8 @@ import 'codemirror/mode/crystal/crystal.js'
 class Room extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {code: '', mode: 'javascript', theme: 'eclipse', users: []}
-    socket.on('receive code', (newCode) => this.updateCodeInState(newCode));
+    this.state = {code: '', mode: 'javascript', theme: 'eclipse', users: [], currentlyTyping: null}
+    socket.on('receive code', (payload) => this.updateCodeInState(payload));
     socket.on('receive change mode', (newMode) => this.updateModeInState(newMode))
     socket.on('new user join', (users) => this.joinUser(users))
     socket.on('load present users', () => this.sendUsers())
@@ -84,9 +84,10 @@ class Room extends React.Component {
   }
 
 
-  updateCodeInState(newCode) {
+  updateCodeInState(payload) {
     this.setState({
-      code: newCode
+      code: payload.code,
+      currentlyTyping: payload.currentlyTyping
     });
   }
 
@@ -105,7 +106,13 @@ class Room extends React.Component {
 
   codeIsHappening(newCode) {
     this.updateCodeInState(newCode)
-    socket.emit('coding event', {code: newCode, room: this.props.challenge.id})
+    this.updateCurrentlyTyping()
+    socket.emit('coding event', {code: newCode, room: this.props.challenge.id, currentlyTyping: this.props.currentUser})
+  }
+
+  updateCurrentlyTyping() {
+    this.setState({currentlyTyping: this.props.currentUser})
+    debugger;
   }
 
   changeMode(newMode) {
@@ -123,6 +130,16 @@ class Room extends React.Component {
     socket.emit('coding event', {code: '', room: this.props.challenge.id})
   }
 
+  userList() {
+    return this.state.users.map(user => {
+      if (user == this.state.currentlyTyping) {
+        return <li style={{color: 'blue'}}>{user}</li>
+      } else {
+        return <li style={{color: 'red'}}>{user}</li>
+      }
+    })
+  }
+
   render() {
     var options = {
         lineNumbers: true,
@@ -135,7 +152,7 @@ class Room extends React.Component {
         <p>{this.props.challenge.description}</p>
         <ul>
           <li>yo</li>
-          {this.state.users.map(u => {return <li>{u}</li>})}
+          {this.userList()}
         </ul>
         <ModeSelect mode={this.state.mode} changeMode={this.changeMode.bind(this)}/>
         <ThemeSelect theme={this.state.theme} changeTheme={this.changeTheme.bind(this)} />
