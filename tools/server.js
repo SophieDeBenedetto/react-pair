@@ -40,8 +40,15 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
-  socket.on('coding event', function(coords) {
+  socket.on('coding event', function(data) {
     console.log('in EXPRESS coding event')
-    socket.broadcast.emit('receive code', coords)
+    socket.broadcast.emit('receive code', data)
+  })
+  socket.on('change mode', function(data) {
+    socket.broadcast.emit('receive change mode', data)
   })
 });
+
+
+
+
