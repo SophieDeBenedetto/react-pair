@@ -1,4 +1,5 @@
 import React from 'react'
+import {FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 
 const modes = ["ruby", "javascript"]
 
@@ -8,19 +9,24 @@ const ModeSelect = (props) => {
   }
 
   function renderModeSelect() {
-    return ["ruby", "javascript"].map(mode => {
+    const modes = ["ruby", "javascript", "clojure", "coffeescript", "crystal", "erlang", "php", "python", "swift"]
+    return modes.map((mode, i) => {
       if (mode == props.mode) {
-        return <option value={mode} selected>{mode}</option>
+        return <option key={i} value={mode} selected>{mode}</option>
       } else {
-        return <option value={mode}>{mode}</option>
+        return <option key={i} value={mode}>{mode}</option>
       }
     })
   }
   return (
-    <select onChange={triggerChangeMode}>
-      {renderModeSelect()}
-    </select>
+    <FormGroup controlId="formControlsSelect" onChange={triggerChangeMode}>
+      <ControlLabel>change language</ControlLabel>
+      <FormControl componentClass="select">
+        {renderModeSelect()}
+      </FormControl>
+    </FormGroup>
   )
 }
 
 export default ModeSelect
+
