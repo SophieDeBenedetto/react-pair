@@ -6,7 +6,8 @@ import ThemeSelect from './ThemeSelect'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/challengesActions';
-
+import {Button} from 'react-bootstrap'
+ 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/theme/bespin.css';
@@ -60,9 +61,9 @@ class Room extends React.Component {
     socket.emit('leave room', {room: this.props.challenge.id, user: this.props.currentUser})
   }
 
-  componentWillReceiveProps() {
-    const user = this.props.currentUser
-    const users = [...this.state.users, this.props.currentUser]
+  componentWillReceiveProps(nextProps) {
+    const user = nextProps.currentUser
+    const users = [...this.state.users, user]
     socket.emit('room', {room: this.props.challenge.id, user: user});
     this.setState({users: users})
   }
@@ -116,6 +117,12 @@ class Room extends React.Component {
     this.setState({theme: newTheme})
   }
 
+  clearCode(e) {
+    e.preventDefault();
+    this.setState({code: ''})
+    socket.emit('coding event', {code: '', room: this.props.challenge.id})
+  }
+
   render() {
     var options = {
         lineNumbers: true,
@@ -133,6 +140,8 @@ class Room extends React.Component {
         <ModeSelect mode={this.state.mode} changeMode={this.changeMode.bind(this)}/>
         <ThemeSelect theme={this.state.theme} changeTheme={this.changeTheme.bind(this)} />
         <Codemirror value={this.state.code} onChange={this.codeIsHappening.bind(this)} options={options} />
+        <br/>
+        <Button onClick={this.clearCode.bind(this)} className="col-lg-12">clear code</Button>
       </div>
 
     )

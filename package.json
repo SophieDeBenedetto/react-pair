@@ -7,7 +7,7 @@
     "test": "test",
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel open:src lint:watch",
-    "open:src": "babel-node tools/server.js",
+    "open:src": "babel-node tools/server.js --history-api-fallback",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch"
   },
