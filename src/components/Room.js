@@ -152,7 +152,7 @@ class Room extends React.Component {
         <ThemeSelect theme={this.state.theme} changeTheme={this.changeTheme.bind(this)} />
         <Codemirror value={this.state.code} onChange={this.codeIsHappening.bind(this)} options={options} />
         <br/>
-        <SaveButton text={this.state.code} />
+        <SaveButton text={this.state.code} lang={this.state.mode} title={this.props.challenge.title}/>
         <br/>
         <Button onClick={this.clearCode.bind(this)} className="col-lg-12">clear code</Button>
       </div>
