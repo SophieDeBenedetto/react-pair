@@ -36,7 +36,7 @@ import 'codemirror/mode/crystal/crystal.js'
 class Room extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {code: '', mode: 'javascript', theme: 'monikai'}
+    this.state = {code: '', mode: 'javascript', theme: 'eclipse'}
     socket.on('receive code', (newCode) => this.updateCodeInState(newCode));
     socket.on('receive change mode', (newMode) => this.updateModeInState(newMode))
   }
@@ -50,6 +50,7 @@ class Room extends React.Component {
   }
 
   updateCodeInState(newCode) {
+    debugger;
     this.setState({
         code: newCode
     });

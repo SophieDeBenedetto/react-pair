@@ -1,6 +1,6 @@
 const initialState = {
   challenges: [],
-  session: false
+  currentUser: null
 };
 
 export default initialState;

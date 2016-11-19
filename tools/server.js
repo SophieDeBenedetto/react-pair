@@ -42,6 +42,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('room', function(data) {
+    console.log('in joining room in SERVER')
     socket.join(data.room);
   });
 
