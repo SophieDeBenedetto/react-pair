@@ -4,7 +4,6 @@ const modes = ["ruby", "javascript"]
 
 const ModeSelect = (props) => {
   function triggerChangeMode(e) {
-    debugger;
     props.changeMode(e.target.value)
   }
 

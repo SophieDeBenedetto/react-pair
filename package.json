@@ -12,6 +12,7 @@
     "lint:watch": "npm run lint -- --watch"
   },
   "dependencies": {
+    "axios": "^0.15.2",
     "bootstrap": "^3.3.7",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.6",
@@ -19,8 +20,9 @@
     "react-dom": "^15.4.0",
     "react-favicon": "0.0.4",
     "react-redux": "^4.4.5",
-    "react-router": "^2.7.0",
+    "react-router": "^2.8.1",
     "redux": "^3.5.2",
+    "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.5.1"
