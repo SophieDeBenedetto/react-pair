@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
   socket.on('room', function(data) {
     console.log('in joining room in SERVER')
     socket.join(data.room);
-    console.log(data.users)
+    console.log(data)
     socket.broadcast.to(data.room).emit('load users and code')
     socket.broadcast.to(data.room).emit('new user join', data.user)
   });
