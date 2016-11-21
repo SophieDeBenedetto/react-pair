@@ -1,4 +1,5 @@
 import React from 'react'
+const io = require('socket.io-client')
 const socket = io()
 import Codemirror from 'react-codemirror';
 import ModeSelect from './ModeSelect';
