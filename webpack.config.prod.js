@@ -35,6 +35,8 @@ export default {
       { test: /\.js?$/,
         loader: 'babel',
         exclude: /node_modules/ },
+      {test: /(\.css)$/, 
+        loaders: ['style', 'css']},
       { test: /\.scss?$/,
         loader: 'style!css!sass',
         include: path.join(__dirname, 'src', 'styles') },
