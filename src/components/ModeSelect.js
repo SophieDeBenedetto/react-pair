@@ -1,8 +1,6 @@
 import React from 'react'
 import {FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 
-const modes = ["ruby", "javascript"]
-
 const ModeSelect = (props) => {
   function triggerChangeMode(e) {
     props.changeMode(e.target.value)

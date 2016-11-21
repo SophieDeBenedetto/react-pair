@@ -5,14 +5,14 @@
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle react-pair@1.0.0~prestart: react-pair@1.0.0
 6 verbose lifecycle react-pair@1.0.0~prestart: unsafe-perm in lifecycle true
-7 verbose lifecycle react-pair@1.0.0~prestart: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/sophiedebenedetto/Desktop/Dev/react-pair/node_modules/.bin:/usr/local/bin:/Users/sophiedebenedetto/.rvm/gems/ruby-2.2.1/bin:/Users/sophiedebenedetto/.rvm/gems/ruby-2.2.1@global/bin:/Users/sophiedebenedetto/.rvm/rubies/ruby-2.2.1/bin:/usr/local:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/sophiedebenedetto/.rvm/bin
-8 verbose lifecycle react-pair@1.0.0~prestart: CWD: /Users/sophiedebenedetto/Desktop/Dev/react-pair
+7 verbose lifecycle react-pair@1.0.0~prestart: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/SophieDeBenedetto/Dev/code-pair/react-pair/node_modules/.bin:/usr/local/bin:/Users/SophieDeBenedetto/.rvm/gems/ruby-2.3.1/bin:/Users/SophieDeBenedetto/.rvm/gems/ruby-2.3.1@global/bin:/Users/SophieDeBenedetto/.rvm/rubies/ruby-2.3.1/bin:/usr/local:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/ImageMagick/bin:/Users/SophieDeBenedetto/.rvm/bin:/Users/SophieDeBenedetto/.rvm/bin
+8 verbose lifecycle react-pair@1.0.0~prestart: CWD: /Users/SophieDeBenedetto/Dev/code-pair/react-pair
 9 silly lifecycle react-pair@1.0.0~prestart: Args: [ '-c', 'babel-node tools/startMessage.js' ]
 10 silly lifecycle react-pair@1.0.0~prestart: Returned: code: 0  signal: null
 11 info lifecycle react-pair@1.0.0~start: react-pair@1.0.0
 12 verbose lifecycle react-pair@1.0.0~start: unsafe-perm in lifecycle true
-13 verbose lifecycle react-pair@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/sophiedebenedetto/Desktop/Dev/react-pair/node_modules/.bin:/usr/local/bin:/Users/sophiedebenedetto/.rvm/gems/ruby-2.2.1/bin:/Users/sophiedebenedetto/.rvm/gems/ruby-2.2.1@global/bin:/Users/sophiedebenedetto/.rvm/rubies/ruby-2.2.1/bin:/usr/local:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/sophiedebenedetto/.rvm/bin
-14 verbose lifecycle react-pair@1.0.0~start: CWD: /Users/sophiedebenedetto/Desktop/Dev/react-pair
+13 verbose lifecycle react-pair@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/SophieDeBenedetto/Dev/code-pair/react-pair/node_modules/.bin:/usr/local/bin:/Users/SophieDeBenedetto/.rvm/gems/ruby-2.3.1/bin:/Users/SophieDeBenedetto/.rvm/gems/ruby-2.3.1@global/bin:/Users/SophieDeBenedetto/.rvm/rubies/ruby-2.3.1/bin:/usr/local:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/ImageMagick/bin:/Users/SophieDeBenedetto/.rvm/bin:/Users/SophieDeBenedetto/.rvm/bin
+14 verbose lifecycle react-pair@1.0.0~start: CWD: /Users/SophieDeBenedetto/Dev/code-pair/react-pair
 15 silly lifecycle react-pair@1.0.0~start: Args: [ '-c', 'npm-run-all --parallel open:src lint:watch' ]
 16 silly lifecycle react-pair@1.0.0~start: Returned: code: 1  signal: null
 17 info lifecycle react-pair@1.0.0~start: Failed to exec start script
@@ -27,8 +27,8 @@
 18 verbose stack     at maybeClose (internal/child_process.js:850:16)
 18 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
 19 verbose pkgid react-pair@1.0.0
-20 verbose cwd /Users/sophiedebenedetto/Desktop/Dev/react-pair
-21 error Darwin 14.3.0
+20 verbose cwd /Users/SophieDeBenedetto/Dev/code-pair/react-pair
+21 error Darwin 14.0.0
 22 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
 23 error node v6.0.0
 24 error npm  v3.8.6

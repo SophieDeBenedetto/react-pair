@@ -123,7 +123,7 @@ class Room extends React.Component {
   }
 
   changeMode(newMode) {
-    this.updateModeInState
+    this.updateModeInState(newMode)
     socket.emit('change mode', {mode: newMode, room: this.props.challenge.id})
   }
 
