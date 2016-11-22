@@ -1,14 +1,7 @@
 # Code Pair
-pair program with real humans on real code problems with the help of React + Redux, CodeMirror and Socket.io
 
-## To Do
+A React + Redux app that uses Express and Socket.io to implement real-time pair programming on code challenges. 
 
-### Bug Fixes
+*Code challenges courtesty of [Project Euler](https://projecteuler.net/)* 
 
-* socket subscription on reload, esp. wrt user lists 
-* socket subscription around loading existing code into text area 
-
-### Not Bug Fixes
-
-* Deploy!
-* Chat feature? look into appear.in or other video chatting API.
+* Learn more about the project in this my blog post on Socket.io + React here.
