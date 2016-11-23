@@ -1,9 +1,8 @@
 import React from 'react'
 const style = {
-  position: "absolute",
-  bottom: "0",
   width: "100%",
   height: "60px",
+  marginTop: "5%",
   backgroundColor: "#f5f5f5"
 }
 const Footer = () => {

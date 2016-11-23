@@ -27,7 +27,7 @@ class SaveButton extends React.Component {
   fileNameify(name) {
     return name.split(" ").join("_")
   }
-
+ 
   componentWillReceiveProps(nextProps) {
     this.setState({text: nextProps.text, title: nextProps.title, lang: nextProps.lang})
   }
